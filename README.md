@@ -47,7 +47,7 @@ The dataset represents a fictional telecommunications company providing phone an
 > These features were considered potentially relevant prior to EDA and model-based selection.  
 > Their actual importance will be confirmed through exploratory analysis and machine learning experiments.
 
-## 🔍 Exploratory Data Analysis (EDA)
+## Exploratory Data Analysis (EDA)
 
 ### Main Steps of the Analysis
 
@@ -87,7 +87,7 @@ The dataset represents a fictional telecommunications company providing phone an
 - **Countplots and bar charts** for categorical features (`contract`, `internet_service`, `payment_method`) – compared churn vs. non-churn proportions.  
 - **Target distribution plot (`churn_value`)** – showed that the dataset is slightly imbalanced but not severely skewed.
 
-### 🧩 EDA Summary and Feature Strategy
+### EDA Summary and Feature Strategy
 
 After completing exploratory analysis, a structured feature strategy was defined to prepare the dataset for modeling.
 
