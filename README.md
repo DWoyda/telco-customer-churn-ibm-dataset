@@ -1,9 +1,6 @@
 # Telco Customer Churn – IBM Dataset
 
-Predicting customer churn using structured data related to customer service from a fictional telecommunications provider.  
-The goal of this project is to analyze customer behavior and identify the key factors that lead to churn.  
-It represents a standard classification problem, commonly used in customer retention scenarios.  
-The project includes data understanding, cleaning, exploratory data analysis (EDA), feature engineering, and machine learning (ML) modeling.
+Predicting customer churn using structured data related to customer service from a fictional telecommunications provider. The goal of this project is to analyze customer behavior and identify the key factors that lead to churn. It represents a standard classification problem, commonly used in customer retention scenarios. The project includes data understanding, cleaning, exploratory data analysis (EDA), feature engineering, and machine learning (ML) modeling.
 
 ---
 
@@ -14,8 +11,7 @@ The Machine Learning stage is currently in progress and will be added upon compl
 
 ## Objectives and Research Questions
 
-The main objective of this project is to predict whether a customer will churn based on behavioral, demographic, and service-related variables.  
-The project aims to support customer retention strategies by identifying the most relevant features influencing churn.
+The main objective of this project is to predict whether a customer will churn based on behavioral, demographic, and service-related variables. The project aims to support customer retention strategies by identifying the most relevant features influencing churn.
 
 **Research questions:**
 - What are the main factors contributing to customer churn in the telecommunications sector?  
@@ -28,8 +24,7 @@ The project aims to support customer retention strategies by identifying the mos
 **Source:** [Telco Customer Churn – IBM Dataset (Kaggle)](https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset/data)  
 **Original reference:** [IBM Cognos Analytics Sample Data – Telco Churn](https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113)
 
-The dataset represents a fictional telecommunications company providing phone and Internet services to **7,043 customers in California** during Q3.  
-It contains **33 variables**, including demographic, geographic, service-related, and account-level information, along with churn indicators and customer lifetime metrics.
+The dataset represents a fictional telecommunications company providing phone and Internet services to **7,043 customers in California** during Q3. It contains **33 variables**, including demographic, geographic, service-related, and account-level information, along with churn indicators and customer lifetime metrics.
 
 - **Total records:** 7,043  
 - **Total features:** 33  
