@@ -1,84 +1,147 @@
-# Telco Customer Churn – IBM Dataset (EDA Phase)
+# Telco Customer Churn – IBM Dataset
 
-## 📌 Project Overview
-
-This repository contains the Exploratory Data Analysis (EDA) phase of a customer churn project based on a fictional dataset provided by IBM. The goal is to prepare the data for machine learning, understand customer behavior, and assess potential predictors of churn.
-
----
-
-## 📊 Dataset Information
-
-- **Source**: [IBM Community – Telco Customer Churn](https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113)
-- **License**: *Other (specified in description)* – no explicit license. Dataset is fictional and used for educational/demo purposes.
-- **File**: `Telco_customer_churn.xlsx`
-- **Size**: 7043 observations × 33 columns
-
-ℹ️ The dataset simulates a telco company with customer-level details on contracts, services, and churn-related data.
+Predicting customer churn using structured data related to customer service from a fictional telecommunications provider.  
+The goal of this project is to analyze customer behavior and identify the key factors that lead to churn.  
+It represents a standard classification problem, commonly used in customer retention scenarios.  
+The project includes data understanding, cleaning, exploratory data analysis (EDA), feature engineering, and machine learning (ML) modeling.
 
 ---
 
-## 📁 Project Structure
+## Project Status
 
+**Status:** In Progress – EDA completed, ML phase in preparation.  
+The Machine Learning stage is currently in progress and will be added upon completion.
+
+## Objectives and Research Questions
+
+The main objective of this project is to predict whether a customer will churn based on behavioral, demographic, and service-related variables.  
+The project aims to support customer retention strategies by identifying the most relevant features influencing churn.
+
+**Research questions:**
+- What are the main factors contributing to customer churn in the telecommunications sector?  
+- How do customer demographics and service characteristics affect churn probability?  
+- Can a predictive model accurately classify customers at risk of leaving?  
+- Which features provide the strongest predictive power for churn detection?
+
+## 📂 Data
+
+**Source:** [Telco Customer Churn – IBM Dataset (Kaggle)](https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset/data)  
+**Original reference:** [IBM Cognos Analytics Sample Data – Telco Churn](https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113)
+
+The dataset represents a fictional telecommunications company providing phone and Internet services to **7,043 customers in California** during Q3.  
+It contains **33 variables**, including demographic, geographic, service-related, and account-level information, along with churn indicators and customer lifetime metrics.
+
+- **Total records:** 7,043  
+- **Total features:** 33  
+- **Target variable:** `Churn Label` - indicates whether the customer left (`Yes`) or stayed (`No`) during the quarter.  
+
+**Variable types (with examples):**
+- **Numerical (e.g.):** `Tenure Months`, `Monthly Charge`, `Total Charges`, `CLTV`, `Churn Score`  
+- **Categorical (e.g.):** `Gender`, `Internet Service`, `Contract`, `Payment Method`, `Dependents`, `Partner`  
+- **Binary indicators (e.g.):** `Online Security`, `Tech Support`, `Device Protection`, `Streaming TV`, `Streaming Movies`  
+- **Geographical (e.g.):** `State`, `City`, `Latitude`, `Longitude`, `Zip Code`
+
+**Key features (preliminary):**
+- `Tenure Months` – duration of the customer’s relationship with the company  
+- `Contract` – type of subscription contract (Month-to-Month, One Year, Two Year)  
+- `Internet Service` – category of internet service provided (DSL, Fiber Optic, Cable)  
+- `Payment Method` – payment type selected by the customer  
+- `Churn Score` – churn likelihood predicted by IBM SPSS Modeler  
+- `CLTV` – predicted Customer Lifetime Value used to assess customer importance  
+
+> These features were considered potentially relevant prior to EDA and model-based selection.  
+> Their actual importance will be confirmed through exploratory analysis and machine learning experiments.
+
+## 🔍 Exploratory Data Analysis (EDA)
+
+### Main Steps of the Analysis
+
+- **Data completeness check:**  
+  Missing values were analyzed (`isnull().sum()`) to identify columns with incomplete or irrelevant information (e.g., constant values, IDs, or high-cardinality features).
+
+- **Data types and uniqueness:**  
+  A summary table was created to review data types, the number of unique values, and potential column duplicates.
+
+- **Distribution of numerical features:**  
+  Histograms, boxplots, and descriptive statistics (mean, std, IQR) were used to identify outliers and understand variable distributions.
+
+- **Correlation analysis:**  
+  Pearson correlation heatmaps were computed for numerical features such as `tenure`, `monthly_charges`, `churn_score`, `cltv`, and `total_charges`.
+
+- **Target vs. feature relationships:**  
+  - For **numerical features:** mean and distribution comparisons across churned vs. retained customers.  
+  - For **categorical features:** churn percentages per category (e.g., contract type, internet service, payment method).
 
 ---
 
-## 🧪 Exploratory Data Analysis Summary
+### Key Insights
 
-All steps are included in `notebook/01_eda.ipynb`. Below is a professional summary:
-
-### 1. Initial Checks
-- Verified column types, missing values, duplicates, and cardinality.
-- Generated summary table with:
-  - Data type
-  - Unique value count
-  - Nulls (absolute & %)
-  - Column-level duplicates (added manually)
-
-### 2. Preliminary Feature Assessment
-Based on initial review:
-
-- ❌ **Dropped** features:
-  - ID-like: `customer_id`, `count`
-  - Location: `country`, `state`, `city`, `zip_code`, `lat_long`, `latitude`, `longitude`
-  - Redundant / unusable text: `churn_reason`, `churn_label` (duplicate of target), high-cardinality text
-- ⚠️ **To cast**: 
-  - `total_charges` – from `object` to `float`
-- ✅ **Useful**:
-  - Demographic and service features for modeling
-  - `cltv`, `churn_score`, `tenure_months`, etc.
-
-### 3. Feature Engineering
-- Created:
-  - `tenure_bin` – binned version of `tenure_months` for categorical analysis
-
-### 4. Data Quality Insights
-- Only `churn_reason` had significant missing values (73%) – aligned with domain (only churners have reasons).
-- No full-row duplicates.
-- Feature types and distributions reviewed via histograms and barplots.
-- Correlation heatmaps used to assess relationships.
-
-### 5. Variable Categorization
-
-| Type        | Variables |
-|-------------|-----------|
-| **Numerical** | `tenure_months`, `monthly_charges`, `total_charges`, `churn_score`, `cltv` |
-| **Categorical** | `gender`, `partner`, `contract`, `payment_method`, `internet_service`, etc. |
-| **Dropped** | `customer_id`, `country`, `state`, `zip_code`, `latitude`, `longitude`, `churn_reason`, `churn_label`, etc. |
+- Customers with **month-to-month contracts** show a significantly higher churn probability.  
+- **Fiber optic users** are more likely to churn compared to DSL or non-internet users.  
+- Lack of **additional services** such as *Online Security* or *Tech Support* correlates with higher churn rates.  
+- Higher **Churn Scores** and lower **CLTV** values are strongly associated with churn, as expected.  
+- The feature `churn_label` was removed due to redundancy with the target variable `churn_value`.  
+- Location-related features (`zip_code`, `lat_long`, `state`) and identifiers (`customer_id`) were dropped as non-predictive.
 
 ---
 
-## 🧾 Output
+### Visualizations Performed
 
-- Cleaned dataset saved as `.parquet`:  
-  `data/processed/Telco_customer_churn_ML.parquet`
+- **Histograms and boxplots** for numerical features (`tenure`, `monthly_charges`, `cltv`, `total_charges`) – used to detect outliers and understand distributions.  
+- **Correlation heatmap** – illustrated linear dependencies among numerical features and the target.  
+- **Countplots and bar charts** for categorical features (`contract`, `internet_service`, `payment_method`) – compared churn vs. non-churn proportions.  
+- **Target distribution plot (`churn_value`)** – showed that the dataset is slightly imbalanced but not severely skewed.
 
-- Ready for input into ML pipeline (modeling phase).
+### 🧩 EDA Summary and Feature Strategy
+
+After completing exploratory analysis, a structured feature strategy was defined to prepare the dataset for modeling.
 
 ---
 
-## 📦 Setup & Requirements
+#### 🔻 Columns Dropped
+Features removed due to redundancy, lack of variance, or high cardinality:
 
-Install necessary libraries:
+- `customer_id` – unique identifier, no predictive value  
+- `churn_label` – duplicate of the target variable (`churn_value`)  
+- `churn_reason` – free-text feature with missing values; NLP not included in scope  
+- `count`, `country`, `state` – constant or non-informative  
+- `zip_code`, `lat_long`, `latitude`, `longitude` – unstructured geographic data, excluded from modeling  
 
-```bash
-pip install -r requirements.txt
+```python
+columns_to_drop = [
+    'customer_id', 'count', 'country', 'state', 
+    'zip_code', 'lat_long', 'latitude', 
+    'longitude', 'churn_label', 'churn_reason'
+```
+---
+**Feature Engineering**:
+- `tenure_bins` - created by discretizing (binning) the variable tenure_months into 4 time intervals. (Type: categorical ('object'))
+---
+**Columns with type corrections**:
+- `total_charges`: converted from `object` to `float` for numerical analysis
+---
+
+**Categorical features** (to be encoded):
+- `gender`, `senior_citizen`, `partner`, `dependents`
+- `phone_service`, `multiple_lines`
+- `internet_service`, `online_security`, `online_backup`, `device_protection`, `tech_support`
+- `streaming_tv`, `streaming_movies`
+- `contract`, `payment_method`
+
+```python
+categorical_features = [
+    'gender', 'senior_citizen', 'partner', 'dependents',
+    'phone_service', 'multiple_lines', 'internet_service',
+    'online_security', 'online_backup', 'device_protection',
+    'tech_support', 'streaming_tv', 'streaming_movies',
+    'contract', 'payment_method'
+]
+```
+---
+**Numerical features** (to be scaled):
+- `tenure_months`, `monthly_charges`, `total_charges`, `cltv`, `churn_score`
+```python
+numerical_features = [
+    'tenure_months', 'monthly_charges', 'total_charges', 'cltv', 'churn_score'
+]
+```
