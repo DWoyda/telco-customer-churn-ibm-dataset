@@ -19,7 +19,7 @@ The main objective of this project is to predict whether a customer will churn b
 - Can a predictive model accurately classify customers at risk of leaving?  
 - Which features provide the strongest predictive power for churn detection?
 
-## 📂 Data
+## Data
 
 **Source:** [Telco Customer Churn – IBM Dataset (Kaggle)](https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset/data)  
 **Original reference:** [IBM Cognos Analytics Sample Data – Telco Churn](https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113)
