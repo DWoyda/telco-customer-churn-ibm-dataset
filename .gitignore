@@ -1,7 +1,12 @@
-data/raw/
 data/processed/
-*.xlsx
+data/splits/
 *.parquet
+*.xlsx
+
+!data/raw/new_customers_to_predict_src.xlsx
+
+*.pkl
+
 venv/
 __pycache__/
 .ipynb_checkpoints/

@@ -1,0 +1,6 @@
+gender,senior_citizen,partner,dependents,tenure_months,phone_service,multiple_lines,internet_service,online_security,online_backup,device_protection,tech_support,streaming_tv,streaming_movies,contract,paperless_billing,payment_method,monthly_charges,total_charges,churn_value,churn_score,cltv,tenure_bin,churn_prediction,churn_probability
+Male,No,Yes,Yes,34,Yes,No,Fiber optic,No,Yes,No,No,Yes,Yes,Month-to-month,Yes,Credit card (automatic),89.75,3080.5,0,56,4200,"(31.5, 46.25]",0,0.013
+Female,Yes,No,No,5,Yes,Yes,DSL,No,No,No,No,No,No,Month-to-month,Yes,Electronic check,75.6,378.0,1,78,2150,"(1.941, 16.75]",1,0.757
+Female,No,Yes,No,61,Yes,Yes,Fiber optic,Yes,Yes,Yes,Yes,Yes,Yes,One year,No,Bank transfer (automatic),102.9,6280.0,0,42,5030,"(46.25, 61.0]",0,0.013
+Male,No,No,No,2,Yes,No,Fiber optic,No,No,No,No,No,No,Month-to-month,Yes,Mailed check,64.25,128.5,1,85,1870,"(1.941, 16.75]",1,0.883
+Female,Yes,Yes,Yes,25,Yes,Yes,DSL,Yes,Yes,No,No,No,No,Two year,No,Credit card (automatic),69.85,1746.25,0,33,3560,"(16.75, 31.5]",0,0.02
