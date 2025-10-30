@@ -77,6 +77,7 @@ The dataset represents a fictional telecommunications company providing phone an
 - Higher **Churn Scores** and lower **CLTV** values are strongly associated with churn, as expected.  
 - The feature `churn_label` was removed due to redundancy with the target variable `churn_value`.  
 - Location-related features (`zip_code`, `lat_long`, `state`) and identifiers (`customer_id`) were dropped as non-predictive.
+More in notebook [`01_eda.ipynb`](./notebook/01_eda.ipynb)
 
 ---
 
@@ -93,7 +94,7 @@ After completing exploratory analysis, a structured feature strategy was defined
 
 ---
 
-#### 🔻 Columns Dropped
+#### Columns Dropped
 Features removed due to redundancy, lack of variance, or high cardinality:
 
 - `customer_id` – unique identifier, no predictive value  
@@ -108,12 +109,17 @@ columns_to_drop = [
     'zip_code', 'lat_long', 'latitude', 
     'longitude', 'churn_label', 'churn_reason'
 ```
+
 ---
+
 **Feature Engineering**:
 - `tenure_bins` - created by discretizing (binning) the variable tenure_months into 4 time intervals. (Type: categorical ('object'))
+
 ---
+
 **Columns with type corrections**:
 - `total_charges`: converted from `object` to `float` for numerical analysis
+
 ---
 
 **Categorical features** (to be encoded):
@@ -131,8 +137,11 @@ categorical_features = [
     'tech_support', 'streaming_tv', 'streaming_movies',
     'contract', 'payment_method'
 ]
+
 ```
+
 ---
+
 **Numerical features** (to be scaled):
 - `tenure_months`, `monthly_charges`, `total_charges`, `cltv`, `churn_score`
 ```python
@@ -140,3 +149,120 @@ numerical_features = [
     'tenure_months', 'monthly_charges', 'total_charges', 'cltv', 'churn_score'
 ]
 ```
+
+## Machine Learning
+
+After completing the exploratory data analysis (EDA), the dataset was prepared for modeling. The initial experimentation was conducted in notebooks using a classical approach (manual transformations, model training), which was later structured into a modular pipeline for production-level automation.
+
+### Key Steps:
+
+- **Train/Test Split:**
+  The dataset was split into training and test sets using `train_test_split` with stratification to preserve class balance.
+
+  ```python
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+  ```
+- **Handling Imbalanced Data**:
+  The dataset exhibited a moderate class imbalance. To address this, the pipeline integrates **SMOTE** (Synthetic Minority Over-sampling Technique) within the training phase to oversample the minority class (`churn = 1`).
+
+- **Feature Scaling**:
+  Two scaling strategies were tested:
+  - `StandardScaler` for z-score normalization
+  - `MinMaxScaler` for range-based normalization
+
+- **Categorical Encoding**:
+  Categorical variables were encoded using:
+  - `OneHotEncoder(drop='first')` to prevent multicollinearity
+  - Unknown categories were handled with `handle_unknown='ignore'` to ensure pipeline stability on unseen data
+
+All preprocessing steps were encapsulated in a `ColumnTransformer` and integrated with the model using a modular **Imbalanced-Learn Pipeline** (`ImbPipeline`), allowing seamless transformation, oversampling, and classification.
+
+## Modeling
+
+An experimental approach was used in the modeling phase, testing different classifiers and preprocessing configurations to find the best predictive pipeline. A modular solution was implemented with automated result comparison.
+
+### Models tested:
+The following classifiers were used with various combinations of scaling (`StandardScaler`, `MinMaxScaler`) and categorical encoding (`OneHotEncoder`):
+
+- `Logistic Regression`
+- `K-Nearest Neighbors`
+- `Support Vector Classifier (SVC)`
+- `Gaussian Naive Bayes`
+- `Decision Tree`
+- `Random Forest`
+- `XGBoost`
+
+### Validation and pipeline configuration:
+
+- Data balanced with **SMOTE**
+- Used an **`ImbPipeline`**-type pipeline
+- Data preprocessing: `ColumnTransformer` with separate transformations for numerical and categorical features
+- Cross-validation: `StratifiedKFold(n_splits=5, shuffle=True, random_state=42)`
+- Metrics: `accuracy`, `precision`, `recall`, `f1`, `roc_auc`
+
+The full procedure and result comparison (CV + test) are available in the notebook: [`02_ml.ipynb`](./notebook/02_ml.ipynb)
+
+**Best model:** Random Forest with MinMaxScaler + OneHotEncoder  
+**Accuracy:** 93% | **F1:** 0.87 | **ROC AUC:** 0.92  (focus on F1 socre because we have unbalanced data, accuracy can be misleading
+
+Confusion matrix and plots: see [`04_results_analysis.ipynb`](./notebook/04_results_analysis.ipynb)
+
+## Final Conclusions
+
+Based on the conducted analyses and modeling experiments, the following conclusions can be drawn:
+
+### Key observations:
+- Customers on **Month-to-Month** contracts have a significantly higher likelihood of churn than those on longer-term contracts.
+- The absence of add-on services (e.g., `Online Security`, `Tech Support`) correlates with a higher churn rate.
+- Users with **Fiber Optic** internet exhibit higher churn compared to DSL users or those without internet service.
+- Low **CLTV (Customer Lifetime Value)** and a high **Churn Score** are strong predictors of churn.
+
+## Project Structure
+
+The project is organized in a modular and scalable way, following good practices of data engineering and machine learning workflows.
+
+### Folder overview
+
+```text
+├─ data/        # Raw and processed datasets
+├─ raw/         # Original source data
+├─ processed/   # Cleaned / transformed datasets
+├─ splits/      # Train-test split for modeling
+│
+├─ models/      # Trained model(s) (.pkl files)
+├─ reports/     # Evaluation results, plots, predictions
+├─ notebook/    # EDA, ML training, and analysis notebooks
+├─ src/         # Core Python scripts (modular pipeline)
+│
+├─ requirements.txt  # Environment and dependencies
+├─ .gitignore
+└─ README.md
+```
+
+
+### src/ – Modular Scripts
+
+| File | Description |
+|------|-------------|
+| `config.py` | Centralized config: file paths, column lists, global params |
+| `etl.py` | ETL pipeline – cleaning, type conversion, feature engineering |
+| `train_models.py` | Script for training multiple ML models with CV |
+| `predict_best_model.py` | Loads the trained model and generates predictions |
+| `utils.py` | Helper functions used across ETL and ML scripts |
+
+---
+
+### Modular architecture & automation
+
+After initial prototyping in notebooks, the pipeline was migrated into **modular Python scripts**, allowing for:
+
+- automation and reproducibility,
+- scalable code structure,
+- standalone execution of ETL, training, and prediction stages.
+
+Each stage (ETL, ML, inference) is configurable via a central `config.py` file, making it easy to reuse or extend.
+
+> This architecture makes the project reusable as a template for other classification tasks and ready for future expansion (e.g. with REST API or dashboards).
+
+
+
