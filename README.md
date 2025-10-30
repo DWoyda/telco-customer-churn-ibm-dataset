@@ -266,5 +266,36 @@ Each stage (ETL, ML, inference) is configurable via a central `config.py` file, 
 
 > This architecture makes the project reusable as a template for other classification tasks and ready for future expansion (e.g. with REST API or dashboards).
 
+## 11. Technologies
+
+The project was built with **Python 3.11**, using popular libraries for data analysis, visualization, and predictive modeling. The codebase follows a modular script structure and a configuration file.
+
+### Main libraries and tools:
+
+| Category              | Technologies / Libraries                                   |
+|----------------------|-------------------------------------------------------------|
+| **Data analysis**    | `pandas`, `numpy`                                           |
+| **Visualization**    | `matplotlib`, `seaborn`                                     |
+| **Machine learning** | `scikit-learn`, `xgboost`, `imbalanced-learn`               |
+| **Feature engineering** | `ColumnTransformer`, `Pipeline`, `OneHotEncoder`, `SMOTE` |
+| **Model handling**   | `joblib` (model save/load)                                  |
+| **Custom modules**   | `ogman` – a custom library for data cleaning and helper utilities |
+| **Project structure**| Modular `.py` scripts, `config.py`, `.ipynb` notebooks      |
+
+---
+
+> All dependencies are specified in [`requirements.txt`](./requirements.txt) and can be installed with:
+>
+> ```bash
+> pip install -r requirements.txt
+> ```
+
+## License
+
+This project is licensed under the **MIT License**.  
+See [LICENSE](LICENSE) for details.
+
+**Data:** The dataset comes from  (Kaggle)](https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset/data). 
+
 
 
