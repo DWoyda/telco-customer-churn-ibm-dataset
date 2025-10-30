@@ -224,19 +224,21 @@ The project is organized in a modular and scalable way, following good practices
 ### Folder overview
 
 ```text
-├─ data/        # Raw and processed datasets
-├─ raw/         # Original source data
-├─ processed/   # Cleaned / transformed datasets
-├─ splits/      # Train-test split for modeling
+.
+├─ data/                         # Raw and processed datasets
+│  ├─ raw/                       # Original source data
+│  ├─ processed/                 # Cleaned / transformed datasets
+│  └─ splits/                    # Train–test split for modeling
 │
-├─ models/      # Trained model(s) (.pkl files)
-├─ reports/     # Evaluation results, plots, predictions
-├─ notebook/    # EDA, ML training, and analysis notebooks
-├─ src/         # Core Python scripts (modular pipeline)
+├─ models/                       # Trained model(s) (.pkl files)
+├─ reports/                      # Evaluation results, plots, predictions
+├─ notebook/                     # EDA, ML training, and analysis notebooks
+├─ src/                          # Core Python scripts (modular pipeline)
 │
-├─ requirements.txt  # Environment and dependencies
+├─ requirements.txt              # Environment and dependencies
 ├─ .gitignore
 └─ README.md
+
 ```
 
 
