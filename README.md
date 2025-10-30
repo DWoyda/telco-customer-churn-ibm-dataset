@@ -79,6 +79,8 @@ The dataset represents a fictional telecommunications company providing phone an
 - Location-related features (`zip_code`, `lat_long`, `state`) and identifiers (`customer_id`) were dropped as non-predictive.
 More in notebook [`01_eda.ipynb`](./notebook/01_eda.ipynb)
 
+**Geolocation** (GitHub Pages) (https://dwoyda.github.io/telco-customer-churn-ibm-dataset/churn_map.html)
+
 ---
 
 ### Visualizations Performed
