@@ -77,6 +77,9 @@ The dataset represents a fictional telecommunications company providing phone an
 - Higher **Churn Scores** and lower **CLTV** values are strongly associated with churn, as expected.  
 - The feature `churn_label` was removed due to redundancy with the target variable `churn_value`.  
 - Location-related features (`zip_code`, `lat_long`, `state`) and identifiers (`customer_id`) were dropped as non-predictive.
+
+<img width="1139" height="601" alt="image" src="https://github.com/user-attachments/assets/f8bcdaaa-e9fa-4a86-aa1b-e5d4f49353fc" />
+
 More in notebook [`01_eda.ipynb`](./notebook/01_eda.ipynb)
 
 **Geolocation** (GitHub Pages) (https://dwoyda.github.io/telco-customer-churn-ibm-dataset/churn_map.html)
